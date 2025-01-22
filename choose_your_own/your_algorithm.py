@@ -30,15 +30,24 @@ plt.show()
 
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
+# SVM
+# Import SVC from sklearn library
+from sklearn.svm import SVC
 
+# Instantiate the classifier
+# Parameters of an SVM; C, Gamma, Kernel
 
+clf = SVC(kernel='linear', gamma=1)
 
+# Fit the SVC
+clf.fit(features_train, labels_train)
 
+# Predict using the testing features
+clf.predict(features_test)
 
-
-
-
+# Plot the SVC Plot
 try:
     prettyPicture(clf, features_test, labels_test)
+    plt.show()
 except NameError:
     pass
