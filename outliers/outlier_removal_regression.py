@@ -9,8 +9,8 @@ from outlier_cleaner import outlierCleaner
 
 
 ### load up some practice data with outliers in it
-ages = joblib.load( open("./practice_outliers_ages.pkl", "rb") )
-net_worths = joblib.load( open("./practice_outliers_net_worths.pkl", "rb") )
+ages = joblib.load( open("outliers/practice_outliers_ages.pkl", "rb") )
+net_worths = joblib.load( open("outliers/practice_outliers_net_worths.pkl", "rb") )
 
 
 
@@ -25,15 +25,15 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 
 ### fill in a regression here!  Name the regression object reg so that
 ### the plotting code below works, and you can see what your regression looks like
+from sklearn import linear_model
 
+reg = linear_model.LinearRegression()
 
+reg.fit(ages_train, net_worths_train)
 
-
-
-
-
-
-
+print(f'Slope of the regression eq: {reg.coef_}')
+print(f'Intercept of the regression eq: {reg.intercept_}')
+print(f'Score of the regression eq with test data: {reg.score(ages_test, net_worths_test)}')
 
 try:
     plt.plot(ages, reg.predict(ages), color="blue")
@@ -48,11 +48,10 @@ cleaned_data = []
 try:
     predictions = reg.predict(ages_train)
     cleaned_data = outlierCleaner( predictions, ages_train, net_worths_train )
+    
 except NameError:
     print("Your regression object doesn't exist, or isn't name reg")
     print("Can't make predictions to use in identifying outliers")
-
-
 
 
 
